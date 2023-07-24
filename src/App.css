@@ -2,6 +2,13 @@
   text-align: left;
 }
 
+.NavItem{
+  color: #fff;
+}
+.footer{
+  margin-top: 20%;
+  text-align: center;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

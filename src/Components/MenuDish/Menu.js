@@ -1,40 +1,79 @@
-import React, { useState } from 'react'
+import React, { Component, useState } from 'react'
 import DISHES from './Dish';
+import Comments from './Comment';
 import MenuItem from './MenuItem';
 import DishDetail from './DishDetail'
-import LoadComp from './LoadComp';
+import { Card, CardGroup, Modal, ModalFooter, Button } from 'reactstrap';
 
-const Menu = () => {
-    const [dish] = useState(DISHES);
-    const [seeItem, setSeeItem] = useState(null);
-
-
-
-    const ClickItem = (item) => {
-        setSeeItem(item)
+class Menu extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            dishes: DISHES,
+            seeItem: null,
+            comments: Comments,
+            modalOpen: false
+        }
     }
 
-    const items = dish.map((item) => {
+    ClickItem = (Platter) => {
+        this.setState({
+            seeItem: Platter,
+            modalOpen: !this.state.modalOpen
+        })
+    }
 
-        return <MenuItem Platter={item} ClickItem={ClickItem} key={item.id} />;
-    })
+    toggle = () => {
+        this.setState = ({
+            modalOpen: !this.state.modalOpen
+        })
+    }
 
-    const isInState = seeItem ? <DishDetail passItem={seeItem} /> : null;
-    console.log(isInState);
-    return (
-        <div className='container'>
-            <div className="row">
-                <div className="col-5">
-                    {items}
+    render() {
+        const items = this.state.dishes.map((item) => {
+            return <MenuItem Platter={item} ClickItem={() => this.ClickItem(item)} key={item.id} />;
+        })
+
+
+        let platterDetail = null;
+
+        if (this.state.seeItem != null) {
+            const comments = this.state.comments.filter(comment =>
+                comment.dishId === this.state.seeItem.id)
+            platterDetail = < DishDetail
+                passItem={this.state.seeItem}
+                comments={comments}
+            />
+        }
+        console.log(platterDetail);
+
+
+        return (
+            <div className='container' >
+                <div className="row">
+                    <CardGroup>
+                        <Card onClick={this.toggle}>
+                            {items}
+                        </Card>
+                    </CardGroup>
                 </div>
-                <div className="col-5">
-                    {isInState}
+                <Card>
+                    <Modal isOpen={this.state.modalOpen} toggle={this.state.toggle} >
+                        {platterDetail}
+                        <ModalFooter>
+                            <Button color="secondary" onClick={this.toggle}>
+                                close
+                            </Button>
+                        </ModalFooter>
 
-                </div>
+                    </Modal>
+
+
+                </Card>
+
             </div>
-        </div>
-    )
+        )
+    }
 }
-
 
 export default Menu

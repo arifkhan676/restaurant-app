@@ -10,7 +10,7 @@ const MenuItem = ({ Platter, ClickItem }) => {
                     alt="Ginger Burger"
                     src={Platter.image}
                     style={{
-                        height: 200,
+                        height: 270,
                         opacity: 0.7,
                     }}
                     width="100%"
