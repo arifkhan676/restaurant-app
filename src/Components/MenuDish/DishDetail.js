@@ -2,14 +2,14 @@ import React from 'react'
 import { Card, CardImg, CardText, CardTitle } from 'reactstrap';
 import LoadComp from './LoadComp';
 
-const DishDetail = ({ passItem }) => {
+const DishDetail = (props) => {
     return (
 
         <div>
             <Card inverse style={{ padding: 10, margin: 10 }}  >
                 <CardImg
                     alt="Ginger Burger"
-                    src={passItem.image}
+                    src={props.dish.image}
                     style={{
                         height: 200,
                         opacity: 0.7,
@@ -19,13 +19,13 @@ const DishDetail = ({ passItem }) => {
 
                 <CardTitle tag="p" style={{ color: "#000" }}>
                     <CardText>
-                        {passItem.name}
+                        {props.dish.name}
                     </CardText>
                     <CardText>
-                        {passItem.description}
+                        {props.dish.description}
                     </CardText>
                     <hr />
-                    <LoadComp comments={passItem.comments} />
+                    <LoadComp comments={props.comments} />
                 </CardTitle>
 
             </Card>

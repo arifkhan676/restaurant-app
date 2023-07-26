@@ -36,6 +36,7 @@ class Contact extends Component {
 
 
     render() {
+        document.title = "Arif's Contact"
         return (
             <div className='container'>
                 <Form onSubmit={this.handleClick}>

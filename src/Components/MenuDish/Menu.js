@@ -1,76 +1,73 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import DISHES from './Dish';
 import Comments from './Comment';
 import MenuItem from './MenuItem';
 import DishDetail from './DishDetail'
-import { Card, CardGroup, Modal, ModalFooter, Button } from 'reactstrap';
+import { CardGroup, Modal, ModalBody, ModalFooter, Button } from 'reactstrap';
 
 class Menu extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            dishes: DISHES,
-            seeItem: null,
-            comments: Comments,
-            modalOpen: false
-        }
+
+    state = {
+        dishes: DISHES,
+        seeItem: null,
+        comments: Comments,
+        modalOpen: false
     }
 
-    ClickItem = (Platter) => {
+
+    ClickItem = (dish) => {
         this.setState({
-            seeItem: Platter,
+            seeItem: dish,
             modalOpen: !this.state.modalOpen
-        })
+        });
     }
 
-    toggle = () => {
-        this.setState = ({
+    toggleModal = () => {
+        this.setState({
             modalOpen: !this.state.modalOpen
         })
     }
 
     render() {
+        document.title = "Menu"
         const items = this.state.dishes.map((item) => {
-            return <MenuItem Platter={item} ClickItem={() => this.ClickItem(item)} key={item.id} />;
+            return <MenuItem dish={item} ClickItem={() => this.ClickItem(item)} key={item.id} />;
         })
-
 
         let platterDetail = null;
 
         if (this.state.seeItem != null) {
-            const comments = this.state.comments.filter(comment =>
-                comment.dishId === this.state.seeItem.id)
+            const comments = this.state.comments.filter(comment => {
+                return comment.dishId === this.state.seeItem.id
+            })
+
             platterDetail = < DishDetail
-                passItem={this.state.seeItem}
+                dish={this.state.seeItem}
                 comments={comments}
             />
         }
-        console.log(platterDetail);
+        // console.log(platterDetail);
 
 
         return (
             <div className='container' >
                 <div className="row">
+
                     <CardGroup>
-                        <Card onClick={this.toggle}>
-                            {items}
-                        </Card>
+                        {items}
                     </CardGroup>
-                </div>
-                <Card>
-                    <Modal isOpen={this.state.modalOpen} toggle={this.state.toggle} >
-                        {platterDetail}
+                    <Modal isOpen={this.state.modalOpen} onClick={this.toggleModal} >
+                        <ModalBody>
+                            {platterDetail}
+                        </ModalBody>
                         <ModalFooter>
-                            <Button color="secondary" onClick={this.toggle}>
+                            <Button color="secondary" onClick={this.toggleModal}>
                                 close
                             </Button>
                         </ModalFooter>
-
                     </Modal>
 
-
-                </Card>
-
+                </div>
             </div>
         )
     }

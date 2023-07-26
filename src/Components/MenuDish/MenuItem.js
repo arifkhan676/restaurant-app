@@ -1,14 +1,14 @@
 import React from 'react'
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 
-const MenuItem = ({ Platter, ClickItem }) => {
+const MenuItem = ({ dish, ClickItem }) => {
 
     return (
         <div  >
-            <Card inverse style={{ padding: 10, margin: 10 }} onClick={() => ClickItem(Platter)} >
+            <Card inverse style={{ padding: 10, margin: 10 }} onClick={() => ClickItem(dish)} >
                 <CardImg
                     alt="Ginger Burger"
-                    src={Platter.image}
+                    src={dish.image}
                     style={{
                         height: 270,
                         opacity: 0.7,
@@ -17,7 +17,7 @@ const MenuItem = ({ Platter, ClickItem }) => {
                 />
                 <CardImgOverlay>
                     <CardTitle tag="h5" style={{ color: "#000" }}>
-                        {Platter.name}
+                        {dish.name}
                     </CardTitle>
                 </CardImgOverlay>
             </Card>
