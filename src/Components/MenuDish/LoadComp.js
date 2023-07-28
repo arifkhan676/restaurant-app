@@ -1,18 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-const LoadComp = ({ comments }) => {
-    const preView = comments.map((c) => {
-        return (<div key={c.id}>
-            <h5>{c.author}</h5>
-            <p> {c.comment}</p>
-            <p> {c.rating} </p>
-        </div>)
-    })
+const LoadComments = props => {
     return (
-        <div>
-            {preView}
-        </div>
-    )
+        props.comments.map(comment => {
+            return (
+                <div key={comment.id}>
+                    <h5>{comment.author}</h5>
+                    <p>{comment.comment}</p>
+                </div>
+            );
+        })
+
+    );
 }
 
-export default LoadComp
+export default LoadComments;

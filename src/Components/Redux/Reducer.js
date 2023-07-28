@@ -3,10 +3,14 @@ import Comments from '../MenuDish/Comment';
 
 const initState = {
     dish: DISHES,
-    Comments: Comments
+    comments: Comments,
+    sample: "hello world"
 }
 
 export const rootReducer = ((state = initState, action) => {
+
+    console.log("from reducer ", action);
+
     return state;
 })
 

@@ -1,36 +1,31 @@
-import React from 'react'
-import { Card, CardImg, CardText, CardTitle } from 'reactstrap';
-import LoadComp from './LoadComp';
+import React from 'react';
+import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
+import LoadComments from './LoadComp';
+import CommentForm from '../Body/CommentForm';
 
-const DishDetail = (props) => {
+const DishDetail = props => {
     return (
 
         <div>
-            <Card inverse style={{ padding: 10, margin: 10 }}  >
-                <CardImg
-                    alt="Ginger Burger"
-                    src={props.dish.image}
-                    style={{
-                        height: 200,
-                        opacity: 0.7,
-                    }}
-                    width="100%"
-                />
-
-                <CardTitle tag="p" style={{ color: "#000" }}>
-                    <CardText>
-                        {props.dish.name}
-                    </CardText>
+            <Card style={{ marginTop: "10px" }}>
+                <CardImg top src={props.dish.image} alt={props.dish.name} />
+                <CardBody style={{ textAlign: "left" }}>
+                    <CardTitle>{props.dish.name}</CardTitle>
                     <CardText>
                         {props.dish.description}
                     </CardText>
+                    <CardText>
+                        Price: {props.dish.price}/-
+                    </CardText>
                     <hr />
-                    <LoadComp comments={props.comments} />
-                </CardTitle>
+                    <LoadComments comments={props.comments}></LoadComments>
+                    <hr />
+                    <CommentForm dishID={props.dish.id} />
 
+                </CardBody>
             </Card>
         </div>
-    )
+    );
 }
 
-export default DishDetail
+export default DishDetail;
