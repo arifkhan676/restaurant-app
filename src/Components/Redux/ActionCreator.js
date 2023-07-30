@@ -19,6 +19,7 @@ export const Load_Dishes = dishes => ({
     payload: dishes
 })
 
+/* spinner added */
 
 export const fetchDishes = () => {
     return dispacth => {
