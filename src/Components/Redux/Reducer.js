@@ -1,6 +1,7 @@
-import Comments from '../MenuDish/Comment';
 import { combineReducers } from 'redux';
 import * as ActionTypes from './ActionTypes'
+import { InitialForm } from '../Body/InitialForm';
+import { createForms } from 'react-redux-form';
 
 const dishReducer = (dishState = { isLoading: false, dishes: [] }, action) => {
     switch (action.type) {
@@ -22,12 +23,24 @@ const dishReducer = (dishState = { isLoading: false, dishes: [] }, action) => {
 
 }
 
-const commentReducer = ((commentState = Comments, action) => {
+const commentReducer = ((commentState = { isLoading: false, comments: [] }, action) => {
 
     switch (action.type) {
 
-        case ActionTypes.ADD_COMMENT:
+        case ActionTypes.LOAD_COMMENT:
+            return {
+                ...commentState,
+                isLoading: false,
+                comments: action.payload
+            }
+        case ActionTypes.COMMENT_LOADING:
+            return {
+                ...commentState,
+                isLoading: true,
+                comments: []
+            }
 
+        case ActionTypes.ADD_COMMENT:
             let comment = action.payload;
             comment.id = commentState.length;
             comment.date = new Date().toDateString();
@@ -41,7 +54,11 @@ const commentReducer = ((commentState = Comments, action) => {
 
 export const rootReducer = combineReducers({
     dish: dishReducer,
-    comments: commentReducer
+    comments: commentReducer,
+    ...createForms({
+        feedback: InitialForm
+    })
+
 })
 
 

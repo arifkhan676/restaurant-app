@@ -1,5 +1,8 @@
+import axios from 'axios'
 import * as ActionTypes from './ActionTypes'
-import DISHES from '../MenuDish/Dish'
+import { baseURL } from './baseURL'
+import { type } from '@testing-library/user-event/dist/type'
+import { actions } from 'react-redux-form'
 
 export const addComment = (dishId, author, rating, comment) => ({
     type: ActionTypes.ADD_COMMENT,
@@ -10,6 +13,28 @@ export const addComment = (dishId, author, rating, comment) => ({
         comment: comment
     }
 })
+
+export const commentLoading = () => ({
+    type: ActionTypes.COMMENT_LOADING,
+})
+export const LoadComment = comments => ({
+    type: ActionTypes.LOAD_COMMENT,
+    payload: comments
+})
+
+export const fetchComment = () => {
+    return dispacth => {
+
+        dispacth(commentLoading());
+
+        axios.get(baseURL + 'comments')
+            .then(response => response.data)
+            .then(comments => dispacth(LoadComment(comments)))
+
+
+    }
+}
+
 export const Dish_Load = () => ({
     type: ActionTypes.DISHES_LOADING
 })
@@ -26,9 +51,9 @@ export const fetchDishes = () => {
 
         dispacth(Dish_Load());
 
-        setTimeout(() => {
-            dispacth(Load_Dishes(DISHES));
-        }, 2000);
+        axios.get(baseURL + 'dishes')
+            .then(response => response.data)
+            .then(dishes => dispacth(Load_Dishes(dishes)))
 
 
     }
