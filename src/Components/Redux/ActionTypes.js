@@ -8,5 +8,7 @@ export const DISHES_LOADING = 'DISHES_LOADING';
 
 export const LOAD_DISHES = 'LOAD_DISHES';
 
+export const FAILED_DISHES = 'FAILED_DISHES';
+
 
 

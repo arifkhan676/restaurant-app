@@ -4,7 +4,8 @@ import Loading from '../Body/Loading';
 const LoadComments = props => {
     if (props.commentIsLoading) {
         return <Loading />;
-    } else {
+    }
+    else {
         return (
             props.comments.map(comment => {
                 return (

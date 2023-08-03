@@ -4,14 +4,22 @@ import { baseURL } from './baseURL'
 import { type } from '@testing-library/user-event/dist/type'
 import { actions } from 'react-redux-form'
 
-export const addComment = (dishId, author, rating, comment) => ({
-    type: ActionTypes.ADD_COMMENT,
-    payload: {
+export const addComment = (dishId, author, rating, comment) => dispacth => {
+    const newComment = {
         dishId: dishId,
         author: author,
         rating: rating,
         comment: comment
     }
+    newComment.date = new Date().toISOString();
+    axios.post(baseURL + 'comments', newComment)
+        .then(response => response.data)
+        .then(comment => dispacth(commentConcat(comment)))
+}
+
+export const commentConcat = (comment) => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
 })
 
 export const commentLoading = () => ({
@@ -35,6 +43,12 @@ export const fetchComment = () => {
     }
 }
 
+export const failed_dishes = (errMess) => ({
+    type: ActionTypes.FAILED_DISHES,
+    payload: errMess
+})
+
+
 export const Dish_Load = () => ({
     type: ActionTypes.DISHES_LOADING
 })
@@ -54,7 +68,6 @@ export const fetchDishes = () => {
         axios.get(baseURL + 'dishes')
             .then(response => response.data)
             .then(dishes => dispacth(Load_Dishes(dishes)))
-
-
+            .catch(error => dispacth(failed_dishes(error.message)))
     }
 }

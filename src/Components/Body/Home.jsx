@@ -9,6 +9,7 @@ class Home extends Component {
         return (
             <div>
                 <Loading />
+                <h1>This is home</h1>
             </div>
         );
     }

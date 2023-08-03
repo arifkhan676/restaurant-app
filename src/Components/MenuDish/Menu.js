@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as ActionCreator from '../Redux/ActionCreator'
 import { fetchDishes, fetchComment } from '../Redux/ActionCreator';
 import Loading from '../Body/Loading';
+import { Alert } from 'reactstrap';
 
 const mapStateToProps = state => {
     // console.log(state);
@@ -53,7 +54,13 @@ class Menu extends Component {
         if (this.props.dishes.isLoading) {
             return <Loading />
 
-        } else {
+        } else if (this.props.dishes.errMess != null) {
+            return (
+                <Alert color="danger" > {this.props.dishes.errMess} </Alert>
+            )
+        }
+
+        else {
             const menu = this.props.dishes.dishes.map(item => {
                 return (
                     <MenuItem
